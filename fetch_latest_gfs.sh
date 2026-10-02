@@ -15,7 +15,8 @@ for offset in 0 1; do
     echo "[fetch] trying ${DATE} ${cycle}Z ..." >&2
     if curl -sf --max-time 60 "$URL" -o "$OUT" && [ -s "$OUT" ] && file "$OUT" | grep -q "GRIB"; then
       echo "[fetch] got ${DATE} ${cycle}Z" >&2
-      echo "${DATE}T${cycle}:00:00Z"
+      ISO_DATE="${DATE:0:4}-${DATE:4:2}-${DATE:6:2}"
+      echo "${ISO_DATE}T${cycle}:00:00.000Z"
       exit 0
     fi
   done
